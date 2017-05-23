@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        h1{font-size:20px;color: #333;}
+        div#con{width=960px;margin:0 auto;border:solid 1px #ececec;}
+        div#desc{border-top:solid 1px #ececec;font-size:12px;padding:5px;}
+    </style>
+</head>
+    <body>
+        <?php
+            $id = $_GET['id'];
+            $db = include "db.php";
+            $field = $db[$id];
+        ?>
+        <div id="con">
+            <a href="http://localhost/0505/news">返回首页</a>
+            <h1>
+                <?php echo $field['title'];?>
+            </h1>
+            <div class="desc">
+                <strong>来源:</strong><?php echo $field['source'];?>
+                <strong>点击数:</strong><?php echo $field['click'];?>
+            </div>
+        </div>
+        <div class="content">
+            <?php echo $field['body'];?>
+        </div>
+        <div class="list">
+            <?php
+             $pre =$id-1;
+             if(isset($db[$pre])){
+            ?>
+            <a href="http://localhost/0505/news/index.php?control=index&action=arc&id=<?php echo $pre;?>"><?php echo $db[$pre]['title'];?></a>
+            <?php
+                }else{
+            ?>
+            没有了
+            <?php }?>
+            <!--下一篇-->
+            <?php
+             $next =$id+1;
+             if(isset($db[$next])){
+            ?>
+            <a href="http://localhost/0505/news/index.php?control=index&action=arc&id=<?php echo $next;?>"><?php echo $db[$next]['title'];?></a>
+            <?php
+                }else{
+            ?>
+            没有了
+            <?php }?>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        table,td{bor-collapse:collapse;boder:solid 1px #999;}
+        td{padding:3px:6px}
+    </style>
+    <script charset="utf-8" src="./org/keditor/kindeditor.js"></script>
+    <script charset="utf-8" src="./org/keditor/lang/zh_CN.js"></script>
+    <script>
+        KindEditor.ready(function(K) {//window onload
+            window.editor = K.create('#editor_id',{
+                uploadJson:"http://localhost/0505/news/index.php?control=news&action=upload",
+                filePostName:"hdupload"
+            });
+        });
+    </script>
+</head>
+<body>
+    <form action="http://localhost/0505/news/index.php?control=news&action=add" method="post">
+        <table border="1" width="800">
+            <tr>
+                <td width="200">标题</tdwidth>
+                <td>
+                    <input type="text" name="title">
+                </td>
+            </tr>
+            <tr>
+                <td>来源</td>
+                <td><input type="text" name="source" value="后盾网"></td>
+            </tr>
+            <tr>
+                <td>关键字</td>
+                <td>
+                    <input type="text" name="keywords">
+                </td>
+            </tr>
+            <tr>
+                <td>描述</td>
+                <td>
+                    <textarea cols="60" rows="3" name="description"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>正文</td>
+                <td>
+                   <textarea id="editor_id" name="body" style="width:700px;height:300px;">
+
+                   </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>点击数</td>
+                <td>
+                    <input type="text" name="click" value="100">
+                </td>
+            </tr>
+            <tr>
+                <td csolspan="2"><input type="submit" value="发表"/></td>
+            </tr>
+        </table>
+</body>
+</html>

@@ -1,0 +1,18 @@
+   : dpkg-1.17.25-6.fc23.x86_64                                     1/20 
+  安装    : axel-2.5-1.fc23.x86_64                                         2/20 
+  安装    : wqy-microhei-fonts-0.2.0-0.16.beta.fc23.noarch                 3/20 
+  安装    : libcom_err-1.42.13-3.fc23.i686                                 4/20 
+  安装    : gdk-pixbuf2-2.32.1-1.fc23.i686                                 5/20 
+  安装    : libpng12-1.2.56-1.fc23.i686                                    6/20 
+  安装    : jasper-libs-1.900.1-31.fc23.i686                               7/20 
+  安装    : gdk-pixbuf2-modules-2.32.1-1.fc23.i686                         8/20 
+  安装    : atk-2.18.0-1.fc23.i686                                         9/20 
+  安装    : libverto-0.2.6-5.fc23.i686                                    10/20 
+  安装    : keyutils-libs-1.5.9-7.fc23.i686                               11/20 
+  安装    : openssl-libs-1:1.0.2d-2.fc23.i686                             12/20 
+  安装    : krb5-libs-1.13.2-11.fc23.i686                                 13/20 
+  安装    : avahi-libs-0.6.31-43.fc23.i686                                14/20 
+  安装    : cups-libs-1:2.1-0.3rc1.fc23.i686                              15/20 
+  安装    : gtk2-2.24.28-2.fc23.i686                                      16/20 
+  安装    : alsa-plugins-pulseaudio-1.0.29-2.fc23.i686                    17/20 
+  安装    : libmpg123-1.22.4-1.fc23.i686   

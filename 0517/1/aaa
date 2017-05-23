@@ -1,0 +1,8 @@
+$(function() {
+    $("#file_upload").uploadify({
+        'fileTypeDesc' : 'Image Files',
+        'fileTypeExts' : '*.gif; *.jpg; *.png',
+        'swf'          : '/uploadify/uploadify.swf',
+        'uploader'     : '/uploadify/uploadify.php'
+    });
+});

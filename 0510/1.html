@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="js.js"></script>
+    <script>
+        window.onload=function () {
+            var form = document.getElementById("form1");
+            form.onsubmit=function(){
+              var title = document.getElementById("title").value.replace(/(^\s*)|(\s*$)/g,"");
+              var body = document.getElementById("body").value.replace(/(^\s*)|(\s*$)/g,"");
+            alert(title);
+
+            }
+        }
+        var ajax = getAjax();
+        //AJAX事件监听
+        ajax.onreadystatechange=function(){
+            //所有数据都接收完 并且状态码为200 表示请求完成并且是成功的
+            if(ajax.readyState==4) {
+                //接收数据没有问题
+                if (ajax.status == 200) {
+                   if(ajax.responseText==1){
+                       alert("insert success");
+                   }else{
+                        alert("insert error");
+                 }else {
+                    //alert("出错了。。。");
+                }
+            }
+        }
+        var data ="title="+title+"&body="+body;
+        ajax.open("get","2.php?"+data);//指定URL
+        ajax.send();
+    </script>
+</head>
+<body>
+<h1><script>document.write(new Date()*1);</script></h1>
+    <form id="form1" onsubmit="return false">
+        标题：<input type="text"name="title" id="title"/> <br/>
+        内容：<textarea name="body" cols="30" rows="6" id="body"></textarea><br/>
+        <input type="submit"/>
+    </form>
+</body>
+</html>

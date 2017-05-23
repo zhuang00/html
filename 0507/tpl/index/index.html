@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        h1{font-size:20px;color:#006600;}
+
+    </style>
+</head>
+<body>
+<div> <h1>文章发布系统</h1><h2><a href="http://localhost/0505/news/index.php?control=news&action=addshow"></h2></div>
+        <?php
+        $db =include "db.php";
+        foreach($db as $id=>$news):
+        ?>
+        <li><a href="http://localhost/0507/index.php?control=index&action=arc&id=<?php echo $id ?>"><?php echo $news['title'];?></a>
+        </li>
+        <?php
+        endforeach;
+        ?>
+</body>
+</html>
