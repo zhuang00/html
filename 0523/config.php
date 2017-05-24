@@ -18,7 +18,7 @@
         "THUMB_ENDFIX"=>"_thumb", //缩略图后缀
         //文件上传设置
         "UPLOAD_EXT_SIZE"=>array(//允许上传文件的类型及其大小
-            "jpg"=>200000,"jpeg"=>200000,"doc"=>500000
+            "JPG"=>200000,"jpeg"=>200000,"doc"=>500000
         ),
         "UPLOAD_PATH"=>"./upload",
 

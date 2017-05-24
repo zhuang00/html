@@ -87,3 +87,27 @@ function copyDir ($sdir,$ddir,$stat=0){
 			}
 			return true;
 }
+
+function array_change_key_case_d($arr,$stat=0){
+    $_newArr = array();
+    $func = $stat?"strtoupper":"strtolower";
+    if(!is_array($arr)||empty($arr)){
+        return $_newArr;
+    }
+    foreach($arr as $k=>$v){
+        $_k=$func($k);
+        $_newArr[$_k] = is_array($v)?array_change_key_case_d($v,$stat):$v;
+    }
+    return $_newArr;
+}
+function array_change_value($arr,$type=0){
+    $func =$type?"strtoupper":"strtolower";
+    $_newArr = array();
+    if(!is_array($arr)||empty($arr)){
+        return $arr;
+    }
+    foreach($arr as $k=>$v){
+        $_newArr[$k] = is_array($v)?array_change_value($v,$type):$func($v);
+    }
+    return $_newArr;
+}
