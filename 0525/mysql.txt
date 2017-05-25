@@ -1,0 +1,36 @@
+进入 mysql -uroot -p456123
+退出quit或者exit
+
+sql
+        ddl (数据定义)create创建 drop删除   alter
+        dml(数据操作语言)insert delete update
+        dql (查询语言)select
+        dcl (数据控制)grant
+
+
+3.创建表
+ create table user(uname varchar(10),birthday tinyint,sex tinyint);#创建表
+
+4插入记录
+insert into user set uname='李四',age=22,sex=1;
+
+5查找结果集
+select uname,age,sex from user;
+
+6显示表结构
+show create table user;
+
+7修改编码
+alter table user charset utf8
+
+8修改字段字符集
+alter table user change uname uname varchar(10) character set uft8;
+
+9删除记录
+delete from user where uname='王五';
+
+10清空表
+truncate user;
+
+11删除表
+drop table user;
