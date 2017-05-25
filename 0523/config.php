@@ -21,6 +21,7 @@
             "JPG"=>200000,"jpeg"=>200000,"doc"=>500000
         ),
         "UPLOAD_PATH"=>"./upload",
+        "UPLOAD_WATER_ON"=>1,
 
 
     );

@@ -220,8 +220,9 @@
                     $y = $imgHeight - $waterHeight - 10;
                     break;
                 case 9:
-                    $x = $imgWidth - $waterWidth - 10;
-                    $y = $imgHeight - $waterHeight - 10;
+                    $x = $imgWidth - $waterWidth - 5;
+                    $y = $imgHeight - $waterHeight - 5;
+                    break;
                 default://图片随机加水印
                     $x = mt_rand(20, $imgWidth - $waterWidth);
                     $y = mt_rand(20, $imgHeight - $waterHeight);

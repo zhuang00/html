@@ -21,6 +21,7 @@
             $this->exts = empty($exts)?array_keys(C("UPLOAD_EXT_SIZE")):(is_array($exts)?$exts:explode(",",$exts));//允许上传的类型
 //            p($this->exts);
             $this->size =(int)$size?(int)$size:C("UPLOAD_EXT_SIZE");
+            $this->waterOn = C("UPLOAD_WATER_ON");//加水印
 
         }
         //$_FILES
@@ -53,6 +54,14 @@
             if(!move_uploaded_file($file['tmp_name'],$toFile)){
                 $this->error[]=array('filename'=>$file['name'],'error'=>'上传文件储存失败');
                 return false;
+            }
+            if($this->waterOn && in_array(strtolower($file['ext']),array('jpg','jpeg','png','gif'))){
+                if(!class_exists("Image")){
+                    include "../0522/Image.class.php";
+
+                }
+                $image = new image();
+                $image->water($toFile);
             }
             return $toFile;
         }
