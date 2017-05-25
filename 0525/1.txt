@@ -1,0 +1,33 @@
+1创建学生表:学生姓名，年龄，性别
+
+create table stu(
+sid int unsigned primary key auto_increment,
+sname varchar(10) unique,
+sex enum('男','女')default '男',
+age tinyint(2) not null default 0
+)charset utf8;
+
+
+数值：tinyint smallint int
+tinyint 1字节 0-255 -128 127
+int -2147483648 2147483547 4字节
+
+varchar 0-65535
+char
+标题   5  30  12  50 varchar
+
+密码md5()  32        char
+
+sname char(10) 中    也占30字节
+sname varchar(10) 中  3字节
+
+标题 50 char() 后盾好
+
+
+text
+blob longngblob 二进制
+
+
+enum <
+
+set checkbox
