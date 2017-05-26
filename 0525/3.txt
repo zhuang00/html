@@ -1,0 +1,60 @@
+1恢复数据
+mysql -uroot -p456123 hd<houdunwang.sql
+
+===========================================
+查找年龄大于30中青年，小于20少年，20～30青年
+
+echo  age>30?'中青年':(age<20?'少年':'青年');
+
+
+select * from stu order by age asc;  按年龄小到大
+select * from stu order by age desc;    按年龄大到小
+select * from stu limit 3;              取前三条
+select * from stu where sex=2 order by age asc limit 1; 最小的女同学
+============================================
+筛选出22 33 27 的同学
+select sname ,age from stu where age in (22,23,33);
+
+================================
+从班级中年龄最小的三个女同学里，随机找一个表演舞蹈
+1女同学####
+2年龄最小的3个人#####
+3随机查找一个
+/////select * from stu where sex=2 order by age asc limit 3;
+
+select * from ((select * from stu where sex=2 order by age) ascc) order by rand() limit 1;
+///=====================================
+
+
+按女同学年龄从大小到排序后从中随机取一个人
+select * from stu where sex=2 order by age desc,rand() limit 1
+
+
+查找姓李的同学
+select * from stu where sname like '李%';
+查找不姓李的同学
+select * from stu where sname not like '李%';
+
+查找不姓李的年龄最小的女同学
+1女同学
+2不姓李的
+3年龄最小
+4姓名
+select sname from stu where sex=2 and sname not like '李%' order by age asc limit 1;
+select sname from stu where sex=2 and sname not like '李%' order by age asc limit 1;
+
+
+
+查找包含‘很’的
+select * from news where title like '%很%'
+
+
+
+
+
+找含有置顶的语句
+select * from news where find_in_set('置顶',flag);
+select * from news where flag like '%置顶%';
+
+
+

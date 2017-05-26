@@ -1,2 +1,10 @@
 1男同学年龄在20至30之间的人
 select * from stu where sex=1 and age<20 and age>30;
+
+
+select * from stu where sname=null ==> sname is null
+
+
+select *                3
+from stu                1
+where sname=null        2

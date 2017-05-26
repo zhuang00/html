@@ -34,3 +34,28 @@ truncate user;
 
 11删除表
 drop table user;
+
+12查看mysql支持的字符集
+show character set;
+13校对字符集
+show collation;
+
+
+
+2.删除字段:
+
+    alter table    tablename    drop column      colname;
+     例：
+     alter table   mmanapp_mmanmedia    drop column     appid_id;
+
+
+
+3.修改字段名：
+
+     alter table     tablename    change   old_field_name    new_field_name  old_type;
+
+
+
+4.修改字段类型：
+
+    alter table     tablename     change    filed_name   filed_name   new_type;
