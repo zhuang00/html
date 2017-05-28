@@ -1,0 +1,3 @@
+datetime CCYY-MM-DD HH:MM:SS 8bytes
+date  CCYY-MM-DD 3bytes
+time

@@ -1,0 +1,56 @@
+5.28学习记录
+1插入记录
+insert into stu (sname,sex,age) values('刘德华',1,48),('张学友',1,46);
+insert into stu (age,sex,sname) values(43,2,'郭富城');
+
+2复制表结构与数据
+create table stu_bak select * from stu;
+
+3复制表数据
+insert into stu select * from stu_bak;
+
+4将所有姓李的同学|年龄减少2岁
+update stu set age=age-2  where sname like '李%';
+
+5将年龄最小的|男同学|的年龄改成100岁
+update stu set age=100 where sex=1 order by age asc limit 1;
+
+6所有李姓|女同学|年龄大于10岁|小于50岁的|删除 #between
+delete from stu  where sex=2 and age<50 and age>10 and sname like '李%';
+delete from stu  where sex=2 and age between 10 and 50 and sname like '李%';
+
+7删除sid为1,2,5的学生
+delete from stu where sid in(1,2,5);
+delete from stu where sid=1 or sid=2 or sid=5;
+
+8修改表名
+alter table demo2 rename d999;
+
+9修改表字段名称与类型
+alter table stu change age birthday tinyint(2);
+
+10只修改字段类型
+alter table stu modify birthday int(2);
+
+11添加字段
+alter table stu add email varchar(30);
+
+12删除字段
+alter table stu drop email;
+
+13修改库的字符集
+alter database houdunwang charset utf8;
+
+14添加主键
+ alter table stu add primary key(sid);
+
+15删除主键
+ alter table stu drop primary key;
+ ////////////////////////////////
+
+作业
+16添加表字段birthday为date
+
+17给每一个学生设置出生日期
+
+ ///////////////
