@@ -1,0 +1,112 @@
+datetime 日期和时间        8bytes
+date  日期                4bytes
+time 只是时间              3bytes
+year 年                   1bytes
+timestamp 时间戳           4bytes
+=======================================
+1时间戳的使用
+create table stu2(sname varchar(10) not null default'',addtime timestamp)charset utf8;
+
+2那一个文章表 自增列nid 标题title 点击次数click 文章添加时间addtime 内容content
+create table arc(
+nid int unsigned  not null primary key auto_increment,
+title varchar(100) not null default '',
+click int(10) not null default 0,
+addtime timestamp not null,
+content text
+)charset utf8;
+
+3插入数据
+insert into arc set title='php模板HDVIEW',click=200,content='HDPHP框架内部拥有自主开发的模板引';
+insert
+
+4文章添加时间
+习惯存intt(10)的linux时间戳
+
+5获得当前日期与时间的函数
+now() curdate() curtime()
+
+6将字符串转为标准ISO时间
+select str_to_date('2013/3/14','%Y/%m/%d');
+
+7将日期转为便于阅读的格式
+select nid,title,date_format(addtime,'%Y年%m月%d日')as time from arc;
+注:
+8如果只想转换时间可以用time_format
+select nid,title,time_format(addtime,' %H时%i分%s秒')as time from arc;
+
+9获得星期
+select dayofweek(now());#周日为1
+select weekday(now());#周一为0
+
+10其他获得日期函数
+date(),year(),time(),month(), day(),hour(),minute(),second(),
+dayofyear()一年中的第几天
+
+11把年龄最小的同学找到
+select * from stu order by birthday desc limit 1;
+
+12输出90后的同学显示少年， 80=>青年，70=>中青年
+select sname ,if(year(birthday)>1990,'少年',if(year(birthday)>1980,'青年','中青年'))as c from stu order by birthday;
+
+
+13得到每个同学的生日，不要年，只要月与日
+select concat(sname,'生日是:',date_format(birthday,'%m月%d日'))as birthday from stu;
+select concat(sname,'的生日是:',month(birthday),'月',day(birthday),'日')as birthday from stu;
+
+14判断学生的生日，如果生日已经过，显示'你的生日已经过了'否则显示还有多少天过生日
+select sname,if(f>0,concat('还有',f,'天过生日'),'生日已经过了')  from (select sname,(dayofyear(birthday)-dayofyear(curdate()))as f from stu) as t where f>0;
+
+15得到所有比郭富城大的同学
+to_days(birthday)
+select to days(birthday) from stu where sname='郭富城';
+select * from stu where to_days(birthday)>727314;
+或
+select * from stu where to_days(birthday)>"1991-04-27";
+
+16 interval[+-]num unit
+取得3天前
+select curdate()-interval 3 day;
+
+17 10天后的日期
+select fate_add(curdate(),interval 10 day);
+
+18当前日期与3天前差多少天
+select datediff(now(),date_add(now(),interval -3 day));
+
+19算一下如花已经来到世界上多少天
+select sname,datediff(now(),birthday)as b from stu where sname='如花';
+
+20 获得个人来到世界上的秒数
+select sname,timestampdiff(second,birthday,now())as t from stu;
+
+21分组统计函数
+count(), max(),min(),sum(),avg()
+
+22统计70,80,90各有多少人
+select left(birthday,3) as birth,count(left(birthday,3)) as c from stu group by left(birthday,3);
+
+23获得70,80,90这几个年龄段，哪个年龄段人最多
+select
+concat(mid(birthday,3,1),'0后') as birth,
+count(left(birthday,3))as c
+from stu
+group by left(birthday,3)
+order by c desc
+limit 1;
+
+24算出90后，男女同学有多少人
+select sex,count(sex) as total
+from stu
+where left(birthday,3)=199
+group by sex;
+
+25获得每个姓氏的同学人数,只要姓氏大于1的
+select concat('姓',left(sname,1),'有',count(left(sname,1)),'人') as stu
+from stu
+where sname is not null
+group by left(sname,1)
+having count(left(sname,1))>1;
+
+26得到2月份出生同学的人数
+select month(birthday),count(*)as total from stu where month(birthday)=2;
