@@ -1,0 +1,97 @@
+创建不急表
+create table class (cid smallint unsigned not null primary key auto_increment,cname varchar(30) not null default '')charset utf8 engine myisam;
+##目前有2张表  1学生表  2班级表
+
++-----+--------+------+------------+
+| sid | sname  | sex  | birthday   |cid
++-----+--------+------+------------+
+|   1 | 李四   | 男   | 1976-09-22 |1
+|   3 | 小玉   | 女   | 1992-05-18 |1
+|   4 | 赵六   | 男   | 1982-09-21 |1
++-----+--------+------+------------+
+
++-----+-------+
+| cid | cname |sid
++-----+-------+
+|   1 | 1班   | 1
+|   1 | 1班   | 3
+|   1 | 1班   | 4
+|   2 | 2班   |
++-----+-------+
+
+2获得学生所在的班级
+select sname,cname,c.cid,sid,birthday from class as c,stu as s where c.cid=s.cid;
+或
+select * from stu as s join class as c on s.cid=c.cid;
+
+3查找男同学所在班级
+select * from stu as s join class as c on s.cid=c.cid where sex=1;
+
+4查找2班都有哪些女同学
+select * from stu as s join class as c on s.cid=c.cid where c.cid=2 && sex=2;
+
+5查找3班有多少同学
+select count(sid) from stu as s join class as c on s.cid=c.cid where c.cid=3;
+
+6每一个班级的同学人数
+select cname,count(*) as total from stu as s join class as c on s.cid=c.cid group by c.cid;
+7查找男生中年龄最小的同学所在的班级{ID}
+select * from stu where sex=1 order by birthday desc limit 1;
+7查找男生中年龄最小的同学所在的班级{名称}
+select sname,cname from stu as s join class as c on s.cid=c.cid where sex=1 order by birthday desc limit 1;
+或者
+select * from class where cid in(select cid from(select cid from stu where sex=1 order by birthday desc limit 1)as t);
+
+9查看90后的女同学都喜欢在哪个班上课
+select cname,sname,birthday from class as c inner join stu as s on c.cid=s.cid where sex=2 and left(birthday,4)>=1990;
+
+10哪一个同学没有班级上课
+select * from stu where cid=0;
+
+11哪一个班级没有学生上课
+ select cname from class as c left join stu as s on s.cid=c.cid where sid is null;
+
+12求和刘德华在一个班级的女同学
+select sname,cid from stu where sex=2 and cid in(select cid from stu where sname='刘德华');
+分步
+a)select sname,cid from stu where sname='刘德华';
+b)select sname,sex from stu where sex=2 and cid=1;
+
+13通过自连接完成
+select s2.sname from stu as s1 join stu as s2 on s1.cid=s2.cid where s1.sname='小玉' and s2.sname not in('小玉');
+
+
+
+15创建课程表
+create table lesson(lid smallint unsigned not null primary key auto_increment,lname varchar(20))charset utf8 engine myisam;
+
+16课程与学生多对多，那么谁记谁
+insert into lesson  (lname) values("javascript"),("php"),("c#"),("ios"),("jquery"),("redis"),("memcache");
+
+
++-----+--------+------+------------+-----+
+| sid | sname  | sex  | birthday   | cid |
++-----+--------+------+------------+-----+
+|   1 | 李四   | 男   | 1976-09-22 |   1 |
+|   3 | 小玉   | 女   | 1992-05-18 |   2 |
+|   4 | 赵六   | 男   | 1982-09-21 |   2 |
++-----+--------+------+------------+-----+
+中间表lid sid
++-----+------------+
+| lid | lname      |
++-----+------------+
+|   1 | javascript |
+|   2 | php        |
++-----+------------+
+
+16每一个学生学习的课程ID
+select sname,sl.lid from stu as s join stu_lesson as sl on s.sid =sl.sid;
+
+17每一个学生的课程名称
+select sname,lesson.lname from stu join stu_lesson join lesson on stu.sid=stu_lesson.sid and stu_lesson.lid=lesson.lid;
+
+18哪个同学学习的课程最多
+
+19哪一个班学生的课程数量最多
+
+20哪一个班的同学最喜欢学javascript
