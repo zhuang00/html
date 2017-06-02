@@ -10,7 +10,8 @@
 			$row[]=$r;
 		}
 	}
-		
+		mysql_free_result($result);
+		mysql_close($db);
 		echo '<pre>';
 		print_r($row);
 		
