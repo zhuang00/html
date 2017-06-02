@@ -91,7 +91,16 @@ select sname,sl.lid from stu as s join stu_lesson as sl on s.sid =sl.sid;
 select sname,lesson.lname from stu join stu_lesson join lesson on stu.sid=stu_lesson.sid and stu_lesson.lid=lesson.lid;
 
 18哪个同学学习的课程最多
-
+select sname,count(*)as t from stu as s join stu_lesson as sl on s.sid=sl.sid group by s.sid order by t desc limit 1;
+select sname,count(*)as t from stu as s join stu_lesson as sl on s.sid=sl.sid group by s.sid having count(*)=2;
 19哪一个班学生的课程数量最多
-
+select cname from stu as s join class as c on s.cid=c.cid join stu_lesson as sl on s.sid=sl.sid group by c.cid order by count(*) desc limit 1;
 20哪一个班的同学最喜欢学javascript
+select * from stu as s #学生表
+join class as c on s.cid=c.cid #关联班级表
+join stu_lesson as sl on s.sid=sl.sid #关联学生课程表
+join lesson as l on sl.lid =l.lid #关联课程表
+where lname ='javascript' #取javascript课程
+group by c.cid #a按班级分组
+order by count(c.cid) desc #分组结果排序
+limit 1; #取一条
