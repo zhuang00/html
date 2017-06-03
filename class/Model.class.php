@@ -3,13 +3,24 @@
 	class Model{
 		private static $_link = null;//数据库连接资源
 		private $_table;//表名
-        private $options=array();//记录表结构、主键
+        private $options;//记录表结构、主键
+        public static $sqls=array();//记录查询的SQL语句
 		function __construct($table){
 			$this->connect();
             $this->table=$table;
+            $this->reset();//options属性初次化
 			$this->opt();//表结构缓存
 
 		}
+		private  function reset(){
+            $this->options=array(
+                "field"=>array(),
+                "pri"=>null,
+                "where"=>"",
+                "order"=>"",
+                "limit"=>""
+            );
+        }
 		private function opt(){
 		   $sql="DESC ".$this->table;
 		   $fields=$this->query($sql);
@@ -44,19 +55,23 @@
 		}
 		//获得结果集
 		function query($sql){
-		    $rows=array();
 			$result = mysql_query($sql);
+			$this->reset();//options属性初次化
+            $rows=array();
 			if(mysql_num_fields($result)){
 				while($r =mysql_fetch_assoc($result)){
 					$rows[]=$r;
 				}
 			}
+			self::$sqls[]=$sql;
 			return $rows;
 		}
 		//执行增，删，改操作
 		public function exe($sql){
 			mysql_query($sql);
+            $this->reset();//options属性初次化
 			$affecteds = mysql_affected_rows();
+            self::$sqls[]=$sql;//sql语句进行记录
 			if($affecteds){
 				return $affecteds;
 			}
@@ -71,11 +86,22 @@
             return empty($result)?null:current($result);
         }
         public function select(){
-		    $where=empty($this->options['where'])?"":"WHERE ".$this->options['where'];
-            $sql ="SELECT * FROM {$this->table} ".$where;
+		    $where=empty($this->options['where'])?"":" WHERE ".$this->options['where'];
+		    $limit=empty($this->options['limit'])?"":" LIMIT ".$this->options['limit'];
+            $order=empty($this->options['order'])?"":" ORDER BY  ".$this->options['order'];
+            $sql ="SELECT * FROM {$this->table} ".$where.$order.$limit;
+//            p($sql);
             return $this->query($sql);
-
         }
+        public function order($arg){
+            $this->options['order']=$arg;
+            return $this;
+        }
+        public function limit($arg){
+            $this->options['limit']=$arg;
+            return $this;
+        }
+
         public function all(){
             return $this->select();
 
@@ -83,5 +109,50 @@
         public function where($arg){
             $this->options['where']=$arg;
             return $this;
+        }
+        public function update($data){
+            $where=$this->options['where'];
+            //更新操作必须指定条件，如果没有条件时放弃本次更新
+            if(empty($this->options['where'])){
+                if(isset($data[$this->options['pri']])){
+                    $where = "WHERE {$this->options['pri']}={$data[$this->options['pri']]}";
+//                    p($where);
+                }else {
+                    return false;
+                }
+            }
+            $s="";
+            foreach($data as $key=>$value){
+                if(!in_array($key,$this->options['field']))continue;//过滤字段
+                $s.=$key."='".$value."',";
+            }
+            $s=substr($s,0,-1);
+            $sql = "UPDATE {$this->table} SET ".$s.$where;
+            return $this->exe($sql);
+        }
+        public function delete() {
+            $where = $this->options['where'];
+            //更新操作必须指定条件，如果没有条件时放弃本次更新
+            if (empty($this->options['where'])) {
+                return false;
+            }
+            $sql = "DELETE FROM {$this->table} "." WHERE ".$where;
+            echo $sql;
+            return $this->exe($sql);
+        }
+        //增加操作
+        public function insert($data){
+            $sql = "INSERT INTO stu(sname,birthday) values()";
+            $fields="";//插入时的字段
+            $values="";//插入的值
+            foreach($data as $key=>$value){
+                if(!in_array($key,$this->options['field']))continue;
+                $fields.=$key.",";
+                $values.="'".$value."',";
+            }
+            $fields = substr($fields,0,-1);
+            $values = rtrim($values,',');
+            $sql = "INSERT INTO {$this->table} ($fields) VALUES($values)";
+            return $this->exe($sql);
         }
 	}
