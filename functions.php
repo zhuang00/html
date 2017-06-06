@@ -1,10 +1,12 @@
 <?php
+
 //实例化出模型对象
 //@param string $table 表名
 //return Object
 function M($table){
         return new Model($table);
 }
+
 
 function p($arr){
       header('content-type:text/html;charset=utf8');

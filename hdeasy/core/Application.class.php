@@ -2,17 +2,35 @@
     //应用处理类
     final class Application{
         static public function run(){
+            spl_autoload_register(array(__CLASS__,"autoload"));//注册自动加载方法
             self::setConst();
             self::createAppPath();//创建应用基本目录
             self::init();//初次化应用
-            self::appRun();//
+            self::loadConfig();//加载配置项
+            self::appRun();//运行应用
+            self::debug();//调试模式
+        }
+        //调试模式
+        static private function debug(){
+            Debug::show();
+        }
+        //注册自动加载方法
+        static public function autoload($className){
+            $classFile = PATH_HDEASY_PATH.'/class/'.$className.'.class.php';
+//            echo $classFile;
+            if(is_file($classFile)){
+                include $classFile;
+            }else{
+                die('类文件'.$classFile."不存在");
+            }
         }
         static private function createAppPath(){
             $dirs =array(
                 'app'=>PATH_APP,//应用文件夹
                 "control"=>PATH_APP.'/control',
                 "config"=>PATH_APP.'/config',
-                "tpl"=>PATH_APP.'/tpl'
+                "tpl"=>PATH_APP.'/tpl',
+                "model"=>PATH_APP.'/model'
             );
             foreach($dirs as $d){
                 is_dir($d) ||mkdir($d);
@@ -25,12 +43,17 @@
             if(!defined("PATH_APP")) {
                 define("PATH_APP",PATH_ROOT.'/'.APP);//应用的文件夹
             }
-            $control = isset($_GET['c']) ?$_GET['c']: 'Index';
-            $method = isset($_GET['m']) ?$_GET['m']: 'Index';
+            $control = isset($_GET['c']) ?$_GET['c']: 'index';
+            $method = isset($_GET['m']) ?$_GET['m']: 'index';
             define("CONTROL", $control);
             define("METHOD", $method);
+            define("PATH_CONTROL",PATH_APP.'/'.CONTROL);//控制器目录
+            define("PATH_TPL",PATH_APP.'/tpl');
         }
-
+        //加载配置项
+        static private function loadConfig(){
+            C(include PATH_APP.'/config/config.php');
+        }
         //初次化应用
         static private function init(){
             $config = PATH_APP.'/config/config.php';//应用配置文件
@@ -39,7 +62,10 @@
             }
 $indexControl=<<<str
 <?php    
-class IndexControl{
+class indexControl extends Control{
+    function __init(){
+        header("content-type:text/html;charset=utf-8;");
+    }
     function index(){    
 echo"<div style='border:solid 1px #dcdcdc;padding:20px,width:600px;font-size:35px;text-align:center'>我的博客</div>";
     }
@@ -51,18 +77,36 @@ str;
         }
 
         static private function appRun(){
-                $controlFile = PATH_APP.'/control/'.CONTROL.'Control.class.php';//控制器文件
-                if(!is_file($controlFile)){
-                    die("控制器文件不存在");
-              }
-                include $controlFile;//加载控制器文件
-                $controlClass = CONTROL.'Control';//控制器的类
-            if(!class_exists($controlClass)){
-                die("控制器类{$controlClass}不存在");
-            }
-                $controlObj = new $controlClass;//实例化出控制器对象
+                $controlFile = PATH_APP.'/control/'.ucfirst(CONTROL).'Control.class.php';//控制器文件
+//                echo $controlFile;
+                if(is_file($controlFile)){
+                    include $controlFile;//加载控制器文件
+                    $controlClass = CONTROL.'Control';//控制器的类
+                    if(!class_exists($controlClass)){
+                        die("控制器类{$controlClass}不存在");
+                    }
+                    $controlObj = new $controlClass;//实例化出控制器对象
+              }else{
+                    $hdEmptyClassFile = PATH_APP.'/control/'.'HdEmptyControl.class.php';//空控制器文件
+                    if(is_file($hdEmptyClassFile)) {
+                        include $hdEmptyClassFile;
+                        $controlObj = new HdEmpty();
+                    }else{
+                        die("控制器类不存在");
+                    }
+                }
                 $method =METHOD;
-                $controlObj->$method();//执行控制器方法
+                if(!method_exists($controlObj,$method)){
+                    //空方法
+                    if(method_exists($controlObj,"__empty")){
+                        $controlObj->__empty();
+                    }else {
+                        header("Content-type:text/html;charset=utf8");
+                        error("你访问的方法{$method}不存在");
+                    }
+                }else {
+                    $controlObj->$method();//执行控制器方法
+                }
             }
 
  }

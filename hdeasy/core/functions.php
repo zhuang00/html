@@ -1,11 +1,27 @@
 <?php
+//实例化扩展模型对象
+function K($name){
+    $modelFile =PATH_APP.'/model/'.ucfirst($name).'Model.class.php';
+    if(!is_file($modelFile)){
+        die("扩展模型文件:{$modelFile}不存在");
+    }
+    require $modelFile;
+    $modelClass =$name.'Model';
+    return new $modelClass;
+}
 //实例化出模型对象
 //@param string $table 表名
 //return Object
 function M($table){
         return new Model($table);
 }
+function error($msg){
+    echo "<div style='border:solid 6px #dcdcdc;padding:600px;padding:20px;text-align:center;line-height:2em;'>
+        {$msg}
+        </div>";
+    exit;
 
+}
 function p($arr){
       header('content-type:text/html;charset=utf8');
       if(is_string($arr)){    

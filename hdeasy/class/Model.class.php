@@ -2,10 +2,15 @@
 
 	class Model{
 		private static $_link = null;//数据库连接资源
-		private $_table;//表名
+		public $_table;//表名
         private $options;//记录表结构、主键
         public static $sqls=array();//记录查询的SQL语句
-		function __construct($table){
+		function __construct($table=null){
+		    $table = $table?$table:$this->_table;
+//		    var_dump($this->_table);
+		    if(!$table){
+		        error("没有可操作的数据表");
+            }
 			$this->connect();
             $this->table=$table;
             $this->reset();//options属性初次化
