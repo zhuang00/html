@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        {literal} tr.red td{color:#f00;}
+                  tr.hot td{font-size:20px;font-weight:bold;}
+                  tr.bgred td{background:#f00;color:yellow;}
+                  li.bgGreen{background:green;color:black;}
+        {/literal}
+    </style>
+</head>
+<body>
+<table border="1" width="600">
+    <tr>
+        <td>学生</td>
+        <td>性别</td>
+        <td>出生日期</td>
+    </tr>
+    {section loop="$data" name="n"}
+    {if $smarty.section.n.first}
+    <tr class="hot">
+        <td>{$data[n].sname}</td>
+        <td>{$data[n].sex}</td>
+        <td>{$data[n].birthday}</td>
+    </tr>
+    {elseif $smarty.section.n.index<=2}
+    <tr class="red">
+        <td>{$data[n].sname}</td>
+        <td>{$data[n].sex}</td>
+        <td>{$data[n].birthday}</td>
+    </tr>
+    {elseif $smarty.section.n.last}
+    <tr class="bgred">
+        <td>{$data[n].sname}</td>
+        <td>{$data[n].sex}</td>
+        <td>{$data[n].birthday}</td>
+    </tr>
+    {else}
+    <tr>
+        <td>{$data[n].sname}</td>
+        <td>{$data[n].sex}</td>
+        <td>{$data[n].birthday}</td>
+    </tr>
+    {/if}
+    {/section}
+</table>
+<hr/>
+{section loop="$data" name="n1"}
+{if $smarty.section.n1.index%2==0}
+    <li  class="bgGreen">{$data[n1].sname}({$data[n1].birthday})</li>
+{else}
+    <li>{$data[n1].sname}({$data[n1].birthday})</li>
+{/if}
+{/section}
+</body>
+</html>
