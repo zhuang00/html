@@ -1,0 +1,53 @@
+删除栏目时同时删除文章
+\d $
+create trigger AfterDelete_category after delete on category
+for each row
+begin
+    delete from news where cid=old.cid;
+end;
+$
+\d ;
+
+
+
+示例2
+添加文章时，如果没有设置source,update_time时，设置默认值
+delimiter $
+create trigger InsertNews before insert on news
+for each row
+begin
+    if new.source='' then
+        set new.source='后盾网';
+    end if;
+    if new.update_time is null then
+        set new.update_time=now();
+    end if;
+end;
+$
+delimiter ;
+
+insert into news set title='这是一篇PHP的文章',cid=1;
+
+例3 当修改文章时，自动修改文章编辑时间
+\d $
+create trigger UpdateNews before update on news
+for each row
+begin
+    set new.update_time=now();
+end;
+$
+\d ;
+
+/*********************************/
+
+
+
+
+
+
+
+
+
+
+
+

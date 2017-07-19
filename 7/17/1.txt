@@ -1,0 +1,72 @@
+\d $
+create procedure test(in n int)
+begin
+if n>100 then
+select "大于100";
+elseif n>50 then
+select "大于50";
+end if;
+end;
+$
+\d ;
+
+
+/*******************case**********************/
+
+\d $
+create procedure cast_test(
+in n int,
+inout str varchar(100) charset utf8
+)
+begin
+case n
+when 1 then
+set str='is one';
+when 2 then
+set str='is two';
+else
+set str='i do not know';
+end case;
+end;
+$
+\d ;
+
+/********************/
+delimiter $
+create procedure add_user(
+    _uname varchar(100)charset utf8,
+    _money decimal(10,2)
+)
+begin
+   insert into user set uname=_uname,money=_money;
+end;
+$
+delimiter ;
+
+/********给用户添加后盾前缀*********/
+\d $
+create procedure add_user_prefix(
+    in _uid int,
+    in _pre varchar(100) charset utf8
+)
+begin
+if isnull(_uid) then
+update user set uname=concat(_pre,uname);
+else
+update user set uname=concat(_pre,uname) where uid=_uid;
+end if;
+end;
+$
+\d ;
+
+
+
+
+
+
+
+
+
+
+
+

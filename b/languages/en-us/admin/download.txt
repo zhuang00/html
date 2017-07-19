@@ -1,0 +1,16 @@
+/*--------- add ---------*/
+add_download => 添加下载
+article_title => 文章标题
+author => 作者/来源
+web_file => 网络文件
+article_text => 文章正文
+ok => 确定
+/*--------- edit ---------*/
+edit_download => 编辑下载
+/*--------- sheet ---------*/
+download_sheet => 下载列表
+download_link => 下载链接
+click_download => 点击下载
+/*--------- deal ---------*/
+edit_article_success => 修改文章成功
+add_article_success => 添加文章成功

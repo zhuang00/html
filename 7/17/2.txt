@@ -1,0 +1,54 @@
+==============储存函数=================
+\d $
+create function hd_concat(
+_uname varchar(100) charset utf8
+)
+returns varchar(100)
+begin
+return concat('后盾_',_uname);
+end;
+$
+\d ;
+
+
+/***********************/
+\d $
+create function get_cname(_nid int)
+returns varchar(100) charset utf8
+reads sql data
+begin
+    if isnull(_nid) then
+    return null;
+    else
+        return (select cname from category where cid in(select cid from news where nid=_nid));
+    end if;
+end;
+$
+\d ;
+
+/*************end****************/
+\d $
+create function get_money(_money decimal(10,2))
+returns varchar(100) charset utf8
+reads sql data
+begin
+    if _money>1000 then
+    return '高收入';
+    else
+    return '低收入';
+    end if;
+end;
+$
+\d ;
+
+/**********end***********/
+
+\d $
+create function hd_repeat(varchar(100),'baidu',_int int)
+return varchar(100) charset utf8
+reads sql data
+begin
+    if
+end;
+$
+\d ;

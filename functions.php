@@ -12,10 +12,14 @@ function p($arr){
       header('content-type:text/html;charset=utf8');
       if(is_string($arr)){    
           echo $arr;
-     }else if(is_array($arr)){
-         echo "<pre>";
+     }else if(is_array($arr)) {
+          echo "<pre>";
           print_r($arr);
           echo "</pre>";
+      }else if(is_object($arr)){
+              echo "<pre>";
+              print_r($arr);
+              echo "</pre>";
      }else{
        var_dump($arr);
      }

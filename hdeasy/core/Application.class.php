@@ -12,12 +12,18 @@
         }
         //调试模式
         static private function debug(){
-            Debug::show();
+            if(C('DEBUG')) {
+                Debug::show();
+            }
         }
         //注册自动加载方法
         static public function autoload($className){
-            $classFile = PATH_HDEASY_PATH.'/class/'.$className.'.class.php';
-//            echo $classFile;
+           if(substr($className,-7)=="Control" && strlen($className)>7){
+               $classFile = PATH_APP.'/control/'.$className.'.class.php';
+//               echo $classFile;
+           }else {
+               $classFile = PATH_HDEASY_PATH . '/class/' . $className . '.class.php';
+           }
             if(is_file($classFile)){
                 include $classFile;
             }else{
@@ -40,19 +46,26 @@
         static private function setConst() {
             //$_GET['c'] 代表控制器
             //$_GET['m'] 代表方法
-            if(!defined("PATH_APP")) {
-                define("PATH_APP",PATH_ROOT.'/'.APP);//应用的文件夹
+            if (!defined("PATH_APP")) {
+                define("PATH_APP", PATH_ROOT . '/' . APP);//应用的文件夹
             }
-            $control = isset($_GET['c']) ?$_GET['c']: 'index';
-            $method = isset($_GET['m']) ?$_GET['m']: 'index';
+            $control = isset($_GET['c']) ? $_GET['c'] : 'index';
+            $method = isset($_GET['m']) ? $_GET['m'] : 'index';
             define("CONTROL", $control);
             define("METHOD", $method);
-            define("PATH_CONTROL",PATH_APP.'/'.CONTROL);//控制器目录
-            define("PATH_TPL",PATH_APP.'/tpl');
+            define("PATH_CONTROL", PATH_APP . '/' . CONTROL);//控制器目录
+            define("PATH_TPL", PATH_APP . '/tpl');
+            define("__ROOT__", "http://" . $_SERVER['HTTP_HOST']);//网站根地址
+            define("__WEB__", __ROOT__ . DIRNAME($_SERVER['SCRIPT_NAME']));
+            define("__HDEASY__", __ROOT__ . str_replace($_SERVER['DOCUMENT_ROOT'], '', PATH_HDEASY_PATH));
+            define("__APP__", __ROOT__ . str_replace($_SERVER['DOCUMENT_ROOT'], '', PATH_APP));
+            define("__TPL__", __ROOT__ . str_replace($_SERVER['DOCUMENT_ROOT'], '', PATH_TPL));
+            define("__CONTROL__", __ROOT__ .$_SERVER['SCRIPT_NAME'].'?c='.CONTROL);
         }
         //加载配置项
         static private function loadConfig(){
             C(include PATH_APP.'/config/config.php');
+//            p(PATH_APP.'/config/config.php');
         }
         //初次化应用
         static private function init(){
@@ -67,10 +80,7 @@ class indexControl extends Control{
         header("content-type:text/html;charset=utf-8;");
     }
     function index(){    
-echo"<div style='border:solid 1px #dcdcdc;padding:20px,width:600px;font-size:35px;text-align:center'>我的博客</div>";
-    }
-}
-?>
+echo"<div style='border:solid 1px #dcdcdc;padding:20px,width:600px;font-size:35px;text-align:center'>我的博客</div>";}}?>
 str;
         copy(PATH_HDEASY_PATH.'/core/config.php',PATH_APP.'/config/config.php');//复制配置文件
         file_put_contents(PATH_APP."/control/IndexControl.class.php",$indexControl);

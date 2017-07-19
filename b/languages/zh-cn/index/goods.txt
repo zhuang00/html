@@ -1,0 +1,7 @@
+/*--------- 产品展示 ---------*/
+goods_tree => 产品分类
+goods_attribute => 产品属性
+goods_name => 产品名称
+goods_sn => 产品编号
+goods_price => 产品价格
+goods_text => 产品描述

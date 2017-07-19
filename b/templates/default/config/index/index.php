@@ -1,0 +1,19 @@
+<?php
+$tpl_config = array(
+	array('page_name'=>'首页','page_index'=>1),
+	array('name'=>'头部','module'=>'header'),
+	array('name'=>'焦点图片','module'=>'focus'),
+	array('name'=>'网站公告','module'=>'notice'),
+	array('name'=>'产品分类','module'=>'goods_tree','parameter'=>array('channel'=>'goods')),
+	array('name'=>'用户登录','module'=>'login'),
+	array('name'=>'联系我们','module'=>'contact'),
+	array('name'=>'友情链接','module'=>'link'),
+	array('name'=>'公司简介','module'=>'about'),
+	array('name'=>'推荐产品','module'=>'best_goods'),
+	array('name'=>'推荐产品列表','module'=>'goods_list'),
+	array('name'=>'推荐文章列表','module'=>'article_list'),
+	array('name'=>'底部','module'=>'footer'),
+	array('name'=>'在线客服','module'=>'service')
+);
+//新秀
+?>

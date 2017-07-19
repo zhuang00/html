@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>
+        <a href="?a=add_show">添加用户</a>
+    </h1>
+    <table border="1">
+        <tr>
+            <td>用户名</td>
+            <td>工资</td>
+        </tr>
+        <?php
+        foreach($user as $field):
+        ?>
+        <tr>
+            <td><?php echo $field['uname'];?></td>
+            <td><?php echo $field['money'];?></td>
+        </tr>
+        <?php endforeach;?>
+    </table>
+</body>
+</html>

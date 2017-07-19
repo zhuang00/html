@@ -1,0 +1,11 @@
+/*--------- add ---------*/
+add_recruit => 添加人才招聘
+article_title => 文章标题
+article_text => 文章正文
+/*--------- edit ---------*/
+edit_recruit => 编辑人才招聘
+/*--------- sheet ---------*/
+recruit_sheet => 人才招聘列表
+/*--------- deal ---------*/
+edit_article_success => 修改文章成功
+add_article_success => 添加文章成功

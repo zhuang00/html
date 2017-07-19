@@ -1,0 +1,26 @@
+@import url(common.css);
+#top{
+    height:80px;background: #41dc35;
+    border-bottom:3px solid #dcdcdc;
+}
+#top h1{padding:20px;}
+/**************左侧导航********************/
+#left{
+    width:200px;background: #dcdcdc;border-right:1px solid #999;
+    position:absolute;
+    top:83px;
+    left:0px;
+    bottom:0px;
+}
+#left dl{padding:8px;border-bottom: solid 1px #999;}
+#left dl dt{font-size:18px;color: #07aa6e;}
+#left dl dd{line-height: 1.8em;font-size:14px;}
+#left dl dd a{padding-left:20px;}
+/**************左侧导航********************/
+#right{
+    position:absolute;
+    top:80px;
+    left:201px;
+    right:0px;
+    bottom:0px;
+}

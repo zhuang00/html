@@ -1,12 +1,7 @@
 <?php
-    include"common.php";
-    $db = mysql_connect("localhost","root","456123");
-    mysql_select_db("houdunwang");
-    mysql_query("SET NAMES UTF8");
-    $result = mysql_query("select * from stu limit 6");
-    $data =array();
-    while($d =mysql_fetch_assoc($result)){
-        $data[]=$d;
+    function h1($data){
+        return "<h1>$data</h1>";
     }
-    $smarty->assign("data",$data);
-    $smarty->display("list.html");
+    include "common.php";
+    $smarty->assign("name","houdunwang");
+    $smarty->display("2.html");

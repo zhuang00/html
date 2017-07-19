@@ -1,0 +1,29 @@
+\d $
+create procedure hd()
+begin
+    declare n int default 2000;#声明变量
+    while n>0 do
+        insert into news set title=concat("这是第",n,"篇文章"),cid=3;
+        set n=n-1;
+    end while;
+end;
+$
+\d ;
+
+
+\d $
+create procedure del_category(in cat_id smallint)
+begin
+    delete from category where cid=cat_id;
+    delete from news where cid=cat_id;
+end;
+$
+\d ;
+
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+{include file="header.html"}
+<div id="main">
+    <!--导航-->
+
+    <!--导航-->
+   <!--日志列表 -->
+    <div class="big">
+        <div class="list">
+            <ul>
+                <li>
+                    <h2>{$field.blog_title}</h2>
+                    <div class="detail">
+                        {$field.blog_sendtime|date_format:'%Y-%m-%d %H:%m'}
+                        <a href="#">阅读({$field.blog_click})</a>
+                    </div>
+                    <p>
+                        {$field.blog_content}
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

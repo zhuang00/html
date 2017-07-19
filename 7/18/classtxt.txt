@@ -1,0 +1,8 @@
+{触发}器
+mysql insert update delete
+    insert '地雷' 例：如果没有设置来源，把来源设置为后盾网
+    update '雷' 例：更新：把文章的编辑时间修改为当前时间
+    delete '雷' 例：当删除栏目时删除文章
+insert source
+delete category
+

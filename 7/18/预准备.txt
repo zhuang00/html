@@ -1,0 +1,17 @@
+预准备语句
+select * from news where cid=?;  会话级别replace
+
+
+示例1 根据ID查询文章
+1)准备一条SQL(MYSQ解释器分析)
+prepare houdunwang from "select * from news where nid=?";
+2）执行准备的SQL，同时传入参数
+set @hd=31;
+execute houdunwang @hd;
+
+
+示例2 根据标题及栏目获得文章
+prepare news_title_cid from "select * from news where title like ? and cid=?";
+set @title='%1%';
+set @cid =1;
+execute news_title_cid using @title,@cid;

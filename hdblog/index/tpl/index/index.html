@@ -1,0 +1,41 @@
+{include file="header.html"}
+    <!--日志列表-->
+    <div class="big">
+        <!--列表-->
+        <div class="list">
+            <ul>
+                {section loop="$data" name="n"}
+                <li><a href="{$__control__}&m=blog&id={$data[n].blog_id}" class="title">{$data[n].blog_title}</a>
+                <em>{$data[n].blog_sendtime|date_format:'%Y-%m-%d %H-%m'}</em>
+                <p>
+                    {$data[n].blog_content|strip_tags|regex_replace:"/\s+/":""|mb_substr:"0":"60":"utf-8"}
+                </p>
+                <div class="detail">
+                    <a href="#">阅读({$data[n].blog_click})</a>
+                    <a href="#">评论数(123)</a>
+                    <a href="#">查看全文</a>
+                </div>
+                </li>
+                {/section}
+            </ul>
+        </div>
+        <!--列表-->
+        <div class="about">
+            <img width=200px src="./index/tpl/index/images/head.jpg"/>
+            <div class="info">
+                <span><strong>新浪微薄:</strong>zhuang2011@gmail.com</span>
+                <span><strong>QQ号:</strong>1324234234</span>
+                <span><strong>博客访问量:</strong><b>122121</b>次</span>
+
+            </div>
+    </div>
+
+    </div>
+    <!--日志列表-->
+</div>
+<div class="page">
+    {$page}
+</div>
+
+</body>
+</html>

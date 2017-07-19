@@ -2,12 +2,11 @@
 
 	class Model{
 		private static $_link = null;//数据库连接资源
-		public $_table;//表名
+		protected $table;//表名
         private $options;//记录表结构、主键
         public static $sqls=array();//记录查询的SQL语句
 		function __construct($table=null){
-		    $table = $table?$table:$this->_table;
-//		    var_dump($this->_table);
+		    $table = $table?$table:$this->table;
 		    if(!$table){
 		        error("没有可操作的数据表");
             }
@@ -61,13 +60,16 @@
 		//获得结果集
 		function query($sql){
 			$result = mysql_query($sql);
+//			p($result);
 			$this->reset();//options属性初次化
             $rows=array();
-			if(mysql_num_fields($result)){
-				while($r =mysql_fetch_assoc($result)){
-					$rows[]=$r;
-				}
-			}
+            if($result &&mysql_num_fields($result)) {
+                if (mysql_num_fields($result)) {
+                    while ($r = mysql_fetch_assoc($result)) {
+                        $rows[] = $r;
+                    }
+                }
+            }
 			self::$sqls[]=$sql;
 			return $rows;
 		}
@@ -133,7 +135,7 @@
             }
             $s=substr($s,0,-1);
             $sql = "UPDATE {$this->table} SET ".$s.$where;
-            return $this->exe($sql);
+            return $this->exe($sql)>=0?true:false;
         }
         public function delete() {
             $where = $this->options['where'];
@@ -142,11 +144,10 @@
                 return false;
             }
             $sql = "DELETE FROM {$this->table} "." WHERE ".$where;
-            echo $sql;
             return $this->exe($sql);
         }
         //增加操作
-        public function insert($data){
+            public function insert($data){
             $sql = "INSERT INTO stu(sname,birthday) values()";
             $fields="";//插入时的字段
             $values="";//插入的值

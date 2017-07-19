@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<table border='1' width='100%'>
+    <tr>
+        <td width="60">id</td>
+        <td>标题</td>
+        <td>发表时间</td>
+        <td>点击数</td>
+        <td>所属分类</td>
+        <td width="200">操作</td>
+    </tr>
+    {section loop="$field" name="n"}
+    <tr>
+        <td>{$field[n].blog_id}</td>
+        <td>{$field[n].blog_title}</td>
+        <td>{$field[n].blog_sendtime|date_format:"%Y-%m-%d"}</td>
+        <td>{$field[n].blog_click}</td>
+        <td>{$field[n].category_name}</td>
+        <td>
+            <a href="{$__control__}&m=editshow&cid={$category[n].cid}">编辑</a>|
+            <a href="{$__control__}&m=del&cid={$category[n].cid}">删除</a>
+        </td>
+    </tr>
+    {/section}
+</table>
+<div class="page">
+    {$page}
+</div>
+</body>
+</html>

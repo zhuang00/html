@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        {literal} tr.red td{color:#f00;}
+        tr.hot td{font-size:20px;font-weight:bold;}
+        tr.bgred td{background:#f00;color:yellow;}
+        li.bgGreen{background:green;color:black;}
+        div.page a{background:#333;color:#fff;padding:2px 5px;margin-right: 5px;}
+        div.page strong{background: #f00;color:yellow;padding:2px 5px;}
+        {/literal}
+        </style>
+</head>
+<body>
+{nocache}
+    <h3>欢迎{$smarty.session.user}访问网站</h3>
+{/nocache}
+{include file="header.html"}
+<hr/>
+<table border="1" width="600">
+    <tr>
+        <td>学生</td>
+        <td>性别</td>
+        <td>出生日期</td>
+    </tr>
+    {section loop="$data" name="n"}
+    <tr class="hot">
+        <td>{$data[n].sname}</td>
+        <td>{$data[n].sex}</td>
+        <td>{$data[n].birthday}</td>
+    </tr>
+    {/section}
+</table>
+<div class="page">{$page}</div>
+
+</body>
+</html>

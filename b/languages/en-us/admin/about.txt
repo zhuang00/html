@@ -1,0 +1,13 @@
+/*--------- add ---------*/
+add_about => 添加关于我们
+article_title => 文章标题
+article_text => 文章正文
+/*--------- edit ---------*/
+edit_about => 编辑关于我们
+/*--------- sheet ---------*/
+about_sheet => 关于我们列表
+page_link => 页面链接
+help_1 => 1.关于我们文章不会自动在前台关于我们页显示，若要在前台显示，请复制页面链接到后台“导航管理”中添加链接。
+/*--------- deal ---------*/
+edit_article_success => 修改文章成功
+add_article_success => 添加文章成功

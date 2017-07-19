@@ -1,0 +1,10 @@
+/*--------- 系统信息 ---------*/
+submit_error_info => sorry, you have submitted incorrect information
+reg_success => Register a new user successfully!
+user_pwd_empty => sorry, the username and password can not be empty
+re_login => Re-login
+user_login_success => Login User Center successfully
+not_exist_or_error => sorry, the username does not exist or the password is incorrect
+submit_message => Your message submitted successfully, please wait for administrator approval
+submit_comment => Your review submitted successfully, please wait for administrator approval
+submit_research => You filled out the questionnaire has been submitted to the webmaster, thank you to participate in online surveys
